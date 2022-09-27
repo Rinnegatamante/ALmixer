@@ -517,6 +517,11 @@ DEFAULT_MMAP_THRESHOLD       default: 256K
 #define MMAP_CLEARS 0           /* WINCE and some others apparently don't clear */
 #endif /* WIN32 */
 
+#ifdef __vita__
+#define LACKS_SYS_MMAN_H
+#define HAVE_MMAP 0
+#endif
+
 #if defined(DARWIN) || defined(_DARWIN)
 /* Mac OSX docs advise not to use sbrk; it seems better to use mmap */
 #ifndef HAVE_MORECORE
@@ -2548,7 +2553,11 @@ init_mparams(void)
         RELEASE_MAGIC_INIT_LOCK();
 
 #ifndef WIN32
+#ifdef __vita__
+        mparams.page_size = 1024;
+#else
         mparams.page_size = malloc_getpagesize;
+#endif
         mparams.granularity = ((DEFAULT_GRANULARITY != 0) ?
                                DEFAULT_GRANULARITY : mparams.page_size);
 #else /* WIN32 */
