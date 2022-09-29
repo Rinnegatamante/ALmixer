@@ -9,6 +9,14 @@ ENDIF()
 #cmake_policy(SET CMP0000 OLD)
 #cmake_policy(SET CMP0004 OLD)
 
+if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+  if(DEFINED ENV{VITASDK})
+    set(CMAKE_TOOLCHAIN_FILE "$ENV{VITASDK}/share/vita.toolchain.cmake" CACHE PATH "toolchain file")
+  else()
+    message(FATAL_ERROR "Please define VITASDK to point to your SDK path!")
+  endif()
+endif()
+
 PROJECT(ALmixer)
 
 INCLUDE(CMakeDependentOption)
