@@ -3,7 +3,7 @@ IF(APPLE)
 	CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12)
 ELSE()
 	# Probably will work with 2.4
-	CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+	CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 ENDIF()
 # These are all useless <sigh>
 #cmake_policy(SET CMP0000 OLD)
